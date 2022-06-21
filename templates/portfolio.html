@@ -29,7 +29,6 @@
 
                 {% for portfolio in portfolios %}
 
-                {% if portfolio.category.lower == "app" %}
                 <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                     <div class="portfolio-wrap">
                         <img src="{{portfolio.image1.url}}" class="img-fluid" alt="">
@@ -46,60 +45,7 @@
                         </div>
                     </div>
                 </div>
-                {% elif portfolio.category.lower == "card" %}
-
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-wrap">
-                        <img src="{{portfolio.image1.url}}" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>{{portfolio.title}}</h4>
-                            <p>{{portfolio.category}}</p>
-                            <div class="portfolio-links">
-                                <a href="{{portfolio.image1.url}}" data-gallery="portfolioGallery"
-                                    class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
-                                <a href="{% url 'portfolio-single' portfolio.id %}" class="portfolio-details-lightbox"
-                                    data-glightbox="type: external" title="Portfolio Details"><i
-                                        class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% elif portfolio.category.lower == "web" %}
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-wrap">
-                        <img src="{{portfolio.image1.url}}" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>{{portfolio.title}}</h4>
-                            <p>{{portfolio.category}}</p>
-                            <div class="portfolio-links">
-                                <a href="{{portfolio.image1.url}}" data-gallery="portfolioGallery"
-                                    class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                                <a href="{% url 'portfolio-single' portfolio.id %}" class="portfolio-details-lightbox"
-                                    data-glightbox="type: external" title="Portfolio Details"><i
-                                        class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div class="col-lg-4 col-md-6 portfolio-item">
-                    <div class="portfolio-wrap">
-                        <img src="{{portfolio.image1.url}}" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                            <h4>{{portfolio.title}}</h4>
-                            <p>{{portfolio.category}}</p>
-                            <div class="portfolio-links">
-                                <a href="{{portfolio.image1.url}}" data-gallery="portfolioGallery"
-                                    class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                                <a href="{% url 'portfolio-single' portfolio.id %}" class="portfolio-details-lightbox"
-                                    data-glightbox="type: external" title="Portfolio Details"><i
-                                        class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
+                
                 {% endfor %}
             </div>
 

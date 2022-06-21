@@ -32,7 +32,7 @@ def portfolio(request):
         'portfolios':portfolios,
        
     }
-    return render(request, 'portfolio.html', context=context)
+    return render(request, 'portfolio.html', context=context) 
 
 def portfolio_single(self, pk):
     portfolios = Portfolio.objects.get(id=pk)
@@ -80,9 +80,9 @@ def blog(request):
             Q(tags__name__icontains=search)
             ).distinct()
     elif categoryId:
-        posts = BlogPost.objects.filter(category = categoryId)
+        posts = BlogPost.objects.filter(category = categoryId).order_by('-id')
     elif tagId:
-        posts = BlogPost.objects.filter(tags = tagId)
+        posts = BlogPost.objects.filter(tags = tagId).order_by('-id')
     else: 
         # If not searched, return default posts
         posts = BlogPost.objects.all().order_by("-created_on")

@@ -10,5 +10,4 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('blog/', views.blog, name="blog"),
     path('blog-single/<str:pk>', views.blog_single, name="blog-single"),
-    # path('search-post/', views.search_post, name='search-post'),
 ]
