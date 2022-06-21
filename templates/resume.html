@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} Resume {% endblock %}
+{% block content %}
+<main id="main">
+    <!-- ======= Resume Section ======= -->
+    <section id="resume" class="resume">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Resume</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat
+                    sit
+                    in iste officiis commodi quidem hic quas.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <h3 class="resume-title">Education</h3>
+                    {% for education in educations %}
+                    <div class="resume-item">
+                        <h4>{{education.course_name}}</h4>
+                        <h5>Passing Year: {{education.period}}</h5>
+                        <p><em>{{education.institute}}</em></p>
+                        <p>{{education.description}}</p>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="resume-title">Professional Experience</h3>
+                    {% for certification in certifications %}
+                    <div class="resume-item">
+                        <h4>{{certification.course_name}}</h4>
+                        <h5>{{certification.period}}</h5>
+                        <p><em>{{certification.institute}} </em></p>
+                        <p>{{certification.description}}</p>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Resume Section -->
+</main>
+{% endblock %}

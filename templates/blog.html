@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block title %} Blog {% endblock %}
+{% block content %}
+<style>
+  .img-fluid {
+    height: 180px;
+    width: 100%;
+  }
+
+  .meta-authentic ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    justify-content: space-between;
+  }
+
+  .entries {
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    vertical-align: initial !important;
+  }
+
+  .tags ul li {
+    display: inline-block;
+    margin-right: 2px;
+  }
+</style>
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Blog</h2>
+        <p></p>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+
+
+
+  <!-- ======= Blog Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+
+
+        <div class="col-lg-8">
+          <div class="row">
+
+
+            {% for post in posts %}
+            <div class="col-lg-6 entries ">
+              <article class="entry">
+
+                <div class="card">
+
+                  <div class="entry-img card-img-top">
+                    <img src="{{post.featured_image.url}}" alt="" class="img-fluid">
+                  </div>
+
+                  <div class="card-body">
+
+                    <h3 class="entry-title card-title text-center">
+                      <a href="{% url 'blog-single' post.id %}">{{post.title|truncatechars:25}}</a>
+                    </h3>
+
+                    <div class="entry-meta meta-authentic">
+                      <ul class="d-flex" style="">
+                        <li class="p-3"><i class="bi bi-person"></i>
+                          <a href="{% url 'blog-single' post.id %}">{{post.author.first_name}}
+                            {{post.author.last_name}}</a>
+                        </li>
+                        <li class="p-3"><i class="bi bi-clock"></i>
+                          <a href="{% url 'blog-single' post.id %}">
+                            <time datetime="2020-01-01">{{post.created_on}}</time>
+                          </a>
+                        </li>
+                        {% comment %} <li class="p-2"><i class="bi bi-chat-dots"></i>
+                          <a href="{% url 'blog-single' post.id %}">{{post.comment}}
+                            Comment{{post.comment|pluralize:"s"}}
+                          </a>
+                        </li> {% endcomment %}
+                      </ul>
+                    </div>
+
+                    <div class="entry-content card-text read-more">
+                      
+                        {{post.body|truncatewords:25|safe}}<a href="{% url 'blog-single' post.id %}">Read More</a>
+                     
+
+                    </div>
+                  </div>
+                </div>
+              </article><!-- End blog entry -->
+            </div><!-- End blog entries list -->
+           
+            {% endfor %} 
+          </div>
+
+
+            <nav aria-label="...">
+              <ul class="pagination justify-content-center pagination-lg">
+
+                {% if posts.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="/blog/?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="/blog/?page={{ posts.previous_page_number }}" tabindex="-1">Previous</a>
+                </li>
+                {% endif %}
+
+                {% for n in total_page %}
+                <li class="page-item {% if n == page_number %}active{% endif %}"><a class="page-link" href="/blog/?page={{ n }}">{{n}}</a></li>
+                {% endfor %}
+
+                
+                {% if posts.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="/blog/?page={{ posts.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="/blog/?page={{ posts.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+                {% endif %}
+
+              </ul>
+            </nav>
+
+
+         
+        </div>
+
+
+
+
+
+
+
+        <div class="col-lg-4" style="padding-left: 60px; ">
+
+          <div class="sidebar">
+
+            <!-- <h3 class="sidebar-title">Search</h3> -->
+            <div class="sidebar-item search-form">
+              <form action="" method="GET">
+                <div class="form-group d-inline-block">
+                  <input type="text" class="form-control" name="search" id="search"  placeholder="Search" style="display: inline;">
+                </div>
+                <button type="submit" class="btn btn-outline-info"><i class="bi bi-search"></i></button>
+              </form>
+            </div><!-- End sidebar search formn-->
+
+
+            <br>
+            <h3 class="sidebar-title">Categories</h3>
+            <div class="sidebar-item categories">
+              <ul>
+                {% for cat in categories.all %}
+                <li>
+                  <a href="/blog/?category={{cat.id}}">
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    {{cat}} <span>({{cat.posts_count}})</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div><!-- End sidebar categories-->
+
+            <h3 class="sidebar-title">Recent Posts</h3>
+            <div class="sidebar-item recent-posts">
+              {% for recent_post in post_list %}
+              {% if forloop.counter <= 3 %} <div class="post-item clearfix mb-4">
+                <img src="{{recent_post.featured_image.url}}" alt="" style="height: 100px; width: 200px;">
+                <h6 style="margin-bottom: 0px !important; margin-top: 3px;"><a
+                    href="{% url 'blog-single' recent_post.id %}">{{recent_post.title}}</a></h6>
+                <time datetime="2020-01-01" style="font-size: 11px; ">{{recent_post.created_on}}</time>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+
+          </div><!-- End sidebar recent posts-->
+
+          <br>
+          <h3 class="sidebar-title">Tags</h3>
+          <div class="sidebar-item tags">
+            <ul>
+              {% for tag in tags.all %}
+              <li>
+                <a href="/blog/?tag={{tag.id}}"> <span class="btn btn-outline-secondary btn-sm" style="font-size: 12px;">{{tag}}</span></a>
+              </li>
+
+              {% endfor %}
+            </ul>
+          </div><!-- End sidebar tags-->
+
+        </div><!-- End sidebar -->
+
+      </div><!-- End blog sidebar -->
+
+    </div>
+
+    </div>
+  </section><!-- End Blog Section -->
+
+</main><!-- End #main -->
+
+{% endblock %}
